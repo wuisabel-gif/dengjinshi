@@ -11,3 +11,16 @@
 
 /* Match each atlas panel without stretching its objects. */
 .evidence-card .evidence-art { height:auto; aspect-ratio:2 / 1; }
+
+/* Quiet geometric embroidery for the introductory scene only. */
+.entrance-header { background-color:#0c1714; background-image:linear-gradient(90deg,#0c171466,#0c1714ed 38%,#0c1714ed 62%,#0c171466),url('/hero-pattern.svg'); border-bottom:1px solid #bda77d55; box-shadow:0 3px 0 #0c1714,0 4px 0 #bda77d22; }
+.hero-ornament {position:absolute;inset:22px 24px 64px;pointer-events:none;z-index:0;border:1px solid #bda77d28;}
+.hero-ornament::before {content:'';position:absolute;inset:0;background:url('/hero-pattern.svg') repeat;opacity:.19;mask-image:linear-gradient(90deg,#000,transparent 36%,transparent 78%,#000);}
+.hero-ornament i {position:absolute;width:38px;height:38px;border-top:1px solid #c5b08088;border-left:1px solid #c5b08088;top:5px;left:5px;}
+.hero-ornament i::after {content:'';position:absolute;top:5px;left:5px;width:17px;height:17px;border:1px solid #c5b08077;border-right:0;border-bottom:0;}
+.hero-ornament i:nth-child(2){left:auto;right:5px;transform:rotate(90deg)}
+.hero-ornament i:nth-child(3){left:auto;right:5px;top:auto;bottom:5px;transform:rotate(180deg)}
+.hero-ornament i:nth-child(4){top:auto;bottom:5px;transform:rotate(270deg)}
+.hero-content,.vertical-verse,.hero-bottom {position:relative;z-index:1;}
+.vertical-verse,.hero-bottom {position:absolute;}
+@media(max-width:800px){.hero-ornament{inset:14px 12px 62px}.hero-ornament i{width:25px;height:25px}.hero-ornament::before{opacity:.12}}
