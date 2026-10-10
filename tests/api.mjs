@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+const base=process.env.TEST_BASE_URL??'http://127.0.0.1:5173';
+async function post(action,seat={},data={}){const response=await fetch(base+'/api/game',{method:'POST',headers:{'Content-Type':'application/json',...(seat.token?{Authorization:`Bearer ${seat.token}`}:{})},body:JSON.stringify({action,code:seat.code,...data})});return {status:response.status,body:await response.json(),cache:response.headers.get('Cache-Control')}}
+const created=await post('create',{}, {name:'API甲'});assert.equal(created.status,200);const seat={code:created.body.room.code,token:created.body.token},host=created.body.room.you;
+const joined=await Promise.all(Array.from({length:5},(_,i)=>post('join',{}, {code:seat.code,name:'API玩家'+i})));assert.ok(joined.every(r=>r.status===200));const seats=[seat,...joined.map(r=>({code:seat.code,token:r.body.token}))];
+const full=await post('join',{}, {code:seat.code,name:'多余玩家'});assert.equal(full.status,400);
+assert.equal((await post('bots',seats[1])).status,400);assert.equal((await post('ready',{code:seat.code,token:'invalid'})).status,400);
+await Promise.all(seats.map(s=>post('ready',s)));let result=await post('start',seat);assert.equal(result.status,200);assert.equal(result.body.room.players.length,6);assert.equal(result.cache,'no-store');
+for(const s of seats){const response=await fetch(`${base}/api/game?code=${s.code}`,{headers:{Authorization:`Bearer ${s.token}`}}),r=await response.json();assert.equal(r.phase,'reading');assert.equal(r.solution,null);assert.equal(r.votes,null);assert.ok(!JSON.stringify(r).includes(s.token));assert.ok(r.players.every(p=>!('token' in p)&&!('found' in p)));}
+const target=joined[0].body.room.you;assert.equal((await post('chat',seat,{to:target,text:'私信不可泄漏'})).status,200);
+const polls=await Promise.all(seats.map(async s=>(await fetch(`${base}/api/game?code=${s.code}`,{headers:{Authorization:`Bearer ${s.token}`}})).json()));assert.ok(polls[0].messages.some(m=>m.text==='私信不可泄漏'));assert.ok(polls[1].messages.some(m=>m.text==='私信不可泄漏'));assert.ok(polls.slice(2).every(r=>!r.messages.some(m=>m.text==='私信不可泄漏')));
+await Promise.all(seats.map(s=>post('done',s)));result=await post('advance',seat);assert.equal(result.body.room.phase,'investigate');assert.equal((await post('search',seat,{place:'study'})).status,200);const other=(await (await fetch(`${base}/api/game?code=${seat.code}`,{headers:{Authorization:`Bearer ${seats[1].token}`}})).json());assert.equal(other.clues.length,0);
+console.log('PASS real D1 API: five concurrent joins, capacity, host/auth checks, six readiness writes, private scripts/whispers/clues and cache headers');
