@@ -9,7 +9,7 @@ export const SCRIPTS:Script[]=[
  {background:'你从小在听雨楼长大，负责报更与掌灯。楼主曾答应替你找回失散的兄长，却用这承诺让你替他监看客人。今夜你决定只说自己真正看见的事。',secret:'你在20:55替东廊添灯，看见一人走进书房，左靴外侧有月牙形补钉。脸被伞挡住，你没看清。21:00报更时，你看见陆昭刚接过老周的灯。你曾替护院送靴去修，却不敢把推测当作目击。你没有杀人。',timeline:[{time:'20:45',text:'在书房外遇见沈砚离开，手里似有一封信。'},{time:'20:55',text:'添灯时看见月牙补钉的靴子走进书房。'},{time:'21:00',text:'前门报更，看见陆昭接替老周。'},{time:'21:20',text:'送热水到书房，发现楼主，呼喊众人。'}],goals:['找出凶手。','区分亲眼所见与自己的推测。','找到修靴记录，为20:55的目击提供佐证。'],statement:'我认不出伞下的脸。但我记得那只靴子，也记得交更的时辰。',reply:'20:55，那人左靴有月牙补钉；21:00，陆昭才接前门的灯。我没有看清脸，请把修靴单也找出来。'},
 ];
 export type Clue={id:string;place:string;title:string;kind:string;icon:string;text:string;question:string;supports?:number;weight?:number};
-export const CLUES:Clue[]=[
+const FINAL_CLUES:Clue[]=[
  {id:'weight',place:'study',title:'藏起的铜镇纸',kind:'物证',icon:'seal',text:'书架底层发现带暗红痕迹的铜镇纸。其棱角与苏棠记录的后脑创口吻合。茶杯无异样，安神药的蜡封完整。',question:'是谁有机会拿起桌上的镇纸，又把它藏起来？'},
  {id:'button',place:'study',title:'铜扣与青线',kind:'物证',icon:'jade',text:'门内的地面有一枚裂开的铜扣，门钩挂着新扯断的青色袖线。护院外衣用这种铜扣；陆昭左袖恰少一枚，缺口能够拼合。旧断口发暗，这处断口仍亮。',question:'铜扣说明来过，怎样确定来访发生在命案时段？',supports:2,weight:2},
  {id:'jade',place:'study',title:'断裂玉佩',kind:'物证',icon:'jade',text:'桌边的玉片与沈砚随身的玉佩吻合。谢云舟承认20:45看见他离开；两名伙计证实20:50至21:10他一直在前厅。',question:'它证明沈砚来过，还是证明他杀了人？'},
@@ -30,3 +30,33 @@ export const SOLUTION={culprit:2,weapon:'铜镇纸',title:'更声响起之前',s
  {title:'四 · 推翻不在场证明',text:'更簿与老周证明21:00才交更，陆昭将守门时间提前了十分钟。这恰好掩盖了进书房、行凶与返回前门的时间。',clues:['watch']},
  {title:'五 · 还原每个人的隐瞒',text:'沈砚偷信，裴行取走借据，柳如烟想赎人，苏棠隐瞒旧诊书，谢云舟不敢指认未见清的脸。每个人的秘密都是真实的，但秘密不等于杀人。',clues:['jade','prints','contract','letter']},
 ],epilogue:'天将明时，雨停了。旧信与更簿一并送往官府。陆怀舟的旧罪终于有人追究，陆昭也必须为今夜的选择付出代价。最后一盏灯熄灭，听雨楼不再替任何人藏住过去。'};
+
+export const CLUES:Clue[] = [
+ {"id": "pass1-0", "place": "study", "title": "茶与药包", "kind": "初勘", "icon": "letter", "text": "茶杯半满，药包仍放在门旁。仅凭这些物件还不能确认死因。", "question": "应先查验什么，才能区分下药与外伤？"},
+ {"id": "pass1-1", "place": "study", "title": "案边玉片", "kind": "初勘", "icon": "letter", "text": "桌角有一片白玉，断口平整。尚不知属于谁，也不知何时落下。", "question": "物件的主人与遗落时间，需要分别证明吗？"},
+ {"id": "pass1-2", "place": "study", "title": "空出的纸镇位置", "kind": "初勘", "icon": "letter", "text": "案上纸张翘起，灰痕中留着一块长方形空位。", "question": "原来压在这里的物件去了哪里？"},
+ {"id": "pass1-3", "place": "garden", "title": "窗外泥印", "kind": "初勘", "icon": "letter", "text": "湿土上有人来回走动的印子，集中在书房窗下。", "question": "走到窗边与进入房间，是同一件事吗？"},
+ {"id": "pass1-4", "place": "garden", "title": "廊下灰盆", "kind": "初勘", "icon": "letter", "text": "灰盆里有新烧的纸角，只看得见一个“账”字。", "question": "谁需要让一张纸消失？"},
+ {"id": "pass1-5", "place": "garden", "title": "补过的靴印", "kind": "初勘", "icon": "letter", "text": "东廊有一枚外侧缺口不齐的靴印，与窗外泥印纹路不同。", "question": "雨中是否出现了两个人的足迹？"},
+ {"id": "pass1-6", "place": "stage", "title": "未散的药箱", "kind": "初勘", "icon": "letter", "text": "戏台后药箱打开，绷带剪头散在凳边。", "question": "谁能证实包扎持续了多久？"},
+ {"id": "pass1-7", "place": "stage", "title": "隔墙一句话", "kind": "初勘", "icon": "letter", "text": "有人记得听见“两清”，却说不清声音来自哪扇门。", "question": "一句独白能充当不在场证明吗？"},
+ {"id": "pass1-8", "place": "stage", "title": "赎身银包", "kind": "初勘", "icon": "letter", "text": "戏箱旁放着备好的银包，数量与一份赎身草约相符。", "question": "争执提供动机，却还缺少什么？"},
+ {"id": "pass1-9", "place": "hall", "title": "旧账缺页", "kind": "初勘", "icon": "letter", "text": "账册少了一张旧年附件，桌上并未翻乱。", "question": "这是否是有目的地取走，而不是随手盗窃？"},
+ {"id": "pass1-10", "place": "hall", "title": "两盏更灯", "kind": "初勘", "icon": "letter", "text": "前门有两盏更灯，一盏油将尽，一盏刚添。", "question": "交灯时刻能否帮助校准人的行程？"},
+ {"id": "pass1-11", "place": "hall", "title": "夜宴席签", "kind": "初勘", "icon": "letter", "text": "六位来客各有席签；宴后多人离席，没有逐一登记。", "question": "先把各人的自述分开，再寻找外部见证。"},
+ {"id": "pass2-0", "place": "study", "title": "创口初验", "kind": "复勘", "icon": "letter", "text": "医者初验记下后脑钝器创伤；要确认凶器，还需寻找形状相符的物件。", "question": "死因与谁有药箱，哪一项更可靠？"},
+ {"id": "pass2-1", "place": "study", "title": "门钩袖线", "kind": "复勘", "icon": "letter", "text": "门钩上有青线，门内见一枚铜扣。尚未与任何衣服比对。", "question": "能否证明这处破损是今晚发生？"},
+ {"id": "pass2-2", "place": "study", "title": "送药时辰", "kind": "复勘", "icon": "letter", "text": "苏棠说20:50送药时楼主仍活着，药留在门旁。此为待核对口供。", "question": "最后活着的目击给出了哪一条时间边界？"},
+ {"id": "pass2-3", "place": "garden", "title": "窗边取物", "kind": "复勘", "icon": "letter", "text": "裴行承认到过窗外，却避开解释手里拿了什么。窗沿无攀爬擦痕。", "question": "可以追问动作，而不是直接指控杀人吗？"},
+ {"id": "pass2-4", "place": "garden", "title": "修靴店记号", "kind": "复勘", "icon": "letter", "text": "修靴纸角画着月牙补钉，姓名栏尚被雨泥遮住。", "question": "这种补法能与侍女的目击联系起来吗？"},
+ {"id": "pass2-5", "place": "garden", "title": "借据残句", "kind": "复勘", "icon": "letter", "text": "纸角补出“今晚两清”。这句话也可能是照着文书念出的。", "question": "听到这句话，为什么不一定意味着楼主说过话？"},
+ {"id": "pass2-6", "place": "stage", "title": "学徒包扎记录", "kind": "复勘", "icon": "letter", "text": "学徒说苏棠20:55开始包扎，柳如烟在旁。班主正在找另一份出场记录核对。", "question": "怎样用第二个见证检验这段共同口供？"},
+ {"id": "pass2-7", "place": "stage", "title": "西廊回声", "kind": "复勘", "icon": "letter", "text": "戏台窗与西廊相通，书房隔着另一重墙。声音的方向可以实地核查。", "question": "声音来自廊下，会如何改变死亡时间的推断？"},
+ {"id": "pass2-8", "place": "stage", "title": "契约未签", "kind": "复勘", "icon": "letter", "text": "赎身草约没有楼主签押。柳如烟承认谈判不欢而散。", "question": "动机成立之后，还需核对她的哪段时间？"},
+ {"id": "pass2-9", "place": "hall", "title": "交更口供", "kind": "复勘", "icon": "letter", "text": "老周记得在21:00把灯交出。护院则声称20:50已守门，双方相差十分钟。", "question": "先记录矛盾，下一轮用什么实物核对？"},
+ {"id": "pass2-10", "place": "hall", "title": "沈砚离房", "kind": "复勘", "icon": "letter", "text": "谢云舟说20:45见沈砚从书房出来。账房承认拿走旧信，但还未交代内容。", "question": "早先到过书房是否落在死亡时间范围内？"},
+ {"id": "pass2-11", "place": "hall", "title": "核账见证", "kind": "复勘", "icon": "letter", "text": "两名伙计记得沈砚20:50起在前厅，裴行后来离开。记录尚需与其他人的时辰拼合。", "question": "谁的时间线仍有未被见证的空白？"},
+ ...FINAL_CLUES,
+];
+export function clueRound(id:string){return id.startsWith("pass1-")?1:id.startsWith("pass2-")?2:3}
+export const CLUE_ART:Record<string,string> = {"pass1-0": "lastseen", "pass1-1": "jade", "pass1-2": "weight", "pass1-3": "prints", "pass1-4": "debt", "pass1-5": "repair", "pass1-6": "treatment", "pass1-7": "voice", "pass1-8": "contract", "pass1-9": "letter", "pass1-10": "watch", "pass1-11": "contract", "pass2-0": "weight", "pass2-1": "button", "pass2-2": "lastseen", "pass2-3": "prints", "pass2-4": "repair", "pass2-5": "debt", "pass2-6": "treatment", "pass2-7": "voice", "pass2-8": "contract", "pass2-9": "watch", "pass2-10": "letter", "pass2-11": "watch"};
