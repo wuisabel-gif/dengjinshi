@@ -24,3 +24,7 @@
 .hero-content,.vertical-verse,.hero-bottom {position:relative;z-index:1;}
 .vertical-verse,.hero-bottom {position:absolute;}
 @media(max-width:800px){.hero-ornament{inset:14px 12px 62px}.hero-ornament i{width:25px;height:25px}.hero-ornament::before{opacity:.12}}
+
+.deduction{padding:32px}.deduction h2{margin:12px 0;font-size:25px}.deduction>p{font-size:12px;color:#71806a}.deduction textarea{min-height:115px;margin-bottom:18px}.round-brief{max-width:680px;font-size:12px;color:#a5aea1;margin-top:9px}.deduction blockquote p{font-size:13px}@media(max-width:500px){.deduction{padding:23px 18px}.deduction h2{font-size:20px}.game-tabs{flex-wrap:wrap}.round-brief{max-width:240px;font-size:10px}}
+
+.stage-progress{flex-shrink:0}.stage-progress span{white-space:nowrap}

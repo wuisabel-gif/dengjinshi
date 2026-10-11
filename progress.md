@@ -11,3 +11,7 @@ Validation: engine tests pass for 1–6 humans with AI fill, role uniqueness, pr
 Real D1 API validation passed: five simultaneous joins, six simultaneous ready actions, capacity, authorization, host privileges, private messages/scripts/clues and no-store responses. Mobile and full browser case flow testing in progress. Entrance screenshot inspected; custom art and Chinese typography render correctly. Fixed test harness to wait for hydration and synchronized state before interacting across clients.
 
 Final validation: production build and TypeScript passed. Complete two-browser flow and mobile flow passed, including reconnect, private state and rematch. Latest evidence artwork and portrait proportions visually inspected. README entrance/lobby screenshots saved without revealing solution. No hosted Site registration recovered; local preview remains running.
+
+Expansion: user found single investigation boring. Added three gated investigation/discussion rounds, 36 staged clues, renewed search budgets, private revisable provisional deductions, and round-aware AI statements. Existing active legacy rooms resume on final round; new rooms start at round one.
+
+Validation: full engine suite passed for 1–6 humans across all three rounds. Two independent browsers completed 6 searches each, 36 staged clue release, three private deductions and sealed final votes; desktop/mobile screenshots inspected. Production build passed.
